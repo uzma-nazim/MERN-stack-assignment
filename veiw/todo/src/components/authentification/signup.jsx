@@ -1,41 +1,47 @@
-import { Grid, TextField } from '@mui/material'
-import React, { useEffect, useState } from 'react'
-import { FormControl } from 'react-bootstrap'
+import React, { useState } from 'react'
+
+import Signupaction from '../store/action/signUpaction'
 import style from "../styles/signup.module.css"
 import AppButtons from './button'
+
+import { Grid, TextField } from '@mui/material'
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify';
+import axios from 'axios'
+import BASE_URI from '../../core'
 
-import Signupaction from '../store/action/action'
-import { useNavigate } from 'react-router-dom'
-
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 function Signup() {
     let [email, setemail] = useState("")
     let [password, setpassword] = useState("")
     let [user_name, setusername] = useState("")
     let [contact, setconatct] = useState("")
-    let [nav , setNav] = useState(false)
+    let [userdata, setuserdata] = useState(true)
     let navigate = useNavigate()
-  
-    let {USER_DATA ,USER_EMPTY_MSG} = useSelector(state=> state.signupReducer)
 
-    console.log(USER_EMPTY_MSG);
+    // let { USER_DATA, USER_EMPTY_MSG } = useSelector(state => state.signupReducer)
+
+
     const dispatch = useDispatch();
-    
-    const signup =  () => {
+
+    const signup = async () => {
+
+
         setemail("")
-        setNav(!nav)
+        setpassword("")
+        setusername("")
+        setconatct("")
+
         const userOBj = {
-            
+
             user_name,
             email,
             contact,
             password
         }
-        if(!user_name || !email || !contact || !password){
-            
+        if (!user_name || !email || !contact || !password) {
+
 
             toast.error('REQUIRED FIELD ARE EMPTY!', {
                 position: "top-right",
@@ -45,59 +51,56 @@ function Signup() {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                });
+            });
         }
+
         else {
-            dispatch(Signupaction(userOBj))
-            if(USER_EMPTY_MSG ==="Email already exist"){
+            setuserdata(false)
+            axios.post(`${BASE_URI}signup`, userOBj)
+                .then((res) => {
+                    const { data } = res.data
+                    setuserdata(true)
 
-                toast.success(`${USER_EMPTY_MSG}`, {
-                    position: "top-right",
-                    autoClose: 1000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    });
-            }
-            else if(USER_EMPTY_MSG ){ 
+                    if (data) {
+                        toast.success('Successfully SignUp', {
+                            position: "top-right",
+                            autoClose: 500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        });
+                        setTimeout(() => {
+                            navigate("/login")
 
-                toast.success(`${USER_EMPTY_MSG}`, {
-                    position: "top-right",
-                    autoClose: 1000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    });
-                navigate("/login")
+                        }, 1500)
+                    }
+                    else {
+                        toast.error('Email already exist', {
+                            position: "top-right",
+                            autoClose: 1000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        });
+                    }
 
-            }
-            
+                })
+                .catch((err) => {
+                    console.log(err);
 
-                console.log(USER_DATA);
-                
-                
+                })
         }
-        
-         
-    }
-    
 
+
+    }
+
+    console.log(userdata);
     return (
-        <><ToastContainer
-        position="top-right"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        />
+        <>
             <div className={style.maincontainer}>
                 <div className={style.miniContainer}>
                     <div className={style.heading}>
@@ -119,23 +122,29 @@ function Signup() {
                             </Grid>
                             <br />
                             <Grid >
-                                <TextField id="outlined-basic" value={contact} onChange={(e) => setconatct(e.target.value)} label="Enter Number" variant="outlined" fullWidth />
+                                <TextField id="outlined-basic" type="number" value={contact} onChange={(e) => setconatct(e.target.value)} label="Enter Number" variant="outlined" fullWidth />
 
                             </Grid>
                             <br />
                             <Grid >
-                                <TextField id="outlined-basic" value={password} onChange={(e) => setpassword(e.target.value)} label="Enter Password" variant="outlined" fullWidth />
+                                <TextField id="outlined-basic" type="password" value={password} onChange={(e) => setpassword(e.target.value)} label="Enter Password" variant="outlined" fullWidth />
 
                             </Grid>
                             <br />
 
                             <Grid >
-                                <AppButtons onclick={signup} buttonTex="Sign UP" />                            </Grid>
+                                <AppButtons onclick={signup} data={userdata} buttonTex="Sign UP" />                            </Grid>
 
                         </Grid>
 
 
 
+
+                        <br />
+
+                        <Grid>
+                            <Link to="/login"> <p className={style.smalltex} > have an account?  <span> Login in</span></p></Link>
+                        </Grid>
 
 
                     </div>

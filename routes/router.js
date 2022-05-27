@@ -1,4 +1,5 @@
 const express = require("express")
+const signup = require("../controllar/authentification/signup")
 
 const todoAdd = require("../controllar/todoAdd")
 const {DeleteAll ,Deleteone} = require("../controllar/tododelete")
@@ -13,10 +14,11 @@ routes.post("/api/todo/add" ,todoAdd )
 
 routes.delete("/api/todo/delete" ,DeleteAll )
 routes.get("/api/todo/get" ,todoGet )
-routes.patch("/api/todo/update:_id" ,update )
-
-
+routes.patch("/api/todo/update:id" ,update )
 routes.delete("/api/todo/delete:id" ,Deleteone )
+
+//authentifiaction
+routes.post("/api/signup" ,signup )
 
 
 module.exports  = routes

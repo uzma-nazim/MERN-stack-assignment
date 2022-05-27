@@ -1,0 +1,50 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+.maincontainer{
+    background-color:#F8F8F8;
+    width: 100%;
+    height:100vh ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.miniContainer{
+    border-radius: 20px;
+    height: auto;
+    background-color: rgb(211, 211, 211 ,0.2);
+    width: 70%;
+    /* border: 1px solid black; */
+}
+.heading{
+    font-size: 40px;
+
+    font-weight: bold !important;
+    color: #0D80D8;
+    text-align: center;
+    margin: 20px;
+}
+.todocontainer{
+
+    padding: 0px 15px;
+}
+.todocontainer button{
+    margin: 0px 5px;
+
+}
+
+
+@media only screen and (max-width:800px){
+    .miniContainer{
+        width: 95%;
+    }
+}
+@media only screen and (max-width:500px){
+    .miniContainer{
+        width: 100%;
+        margin: 5px;
+    }
+}

@@ -1,0 +1,44 @@
+.mainlicontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.liContainer{
+    width: 70%;
+    /* border: 1px solid black; */
+}
+
+.liContainer ul li{
+    
+    margin: 4px ;
+    padding: 8px;
+    list-style: none;
+    border-radius: 10px;
+    background-color: #F8F8F8;
+    display: flex;
+    justify-content: space-between;
+    
+
+}
+.liContainer button{
+    margin: 0px 4px;
+}
+@media only screen and (max-width:800px){
+    .liContainer{
+        width: 100%;
+        margin: 5px;
+    }
+}
+@media only screen and (max-width:500px){
+    .liContainer{
+        width: 110% !important;
+        margin: 5px;
+    }
+    .liContainer button{
+        margin: 0px 1px !important;
+    }
+}
+.edit-btn{
+    width: 120px !important;
+}

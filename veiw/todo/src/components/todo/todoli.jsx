@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import { useSelector } from 'react-redux';
+
 import "../../components/styles/todoli.css"
 import axios from 'axios';
 import { FormControl } from 'react-bootstrap';
 const Todoli = ({ props }) => {
-    let { state, setstate, loader, setloader } = props
+    let { state, setstate } = props
 
     let [updateVal , setupdate] = useState("")
     let [array, setarry] = useState([])
@@ -117,8 +117,6 @@ const Todoli = ({ props }) => {
             {
                 !array ?
                     <div className="mainlicontainer">
-
-
 
                         <div className="liContainer">
                             <ul>

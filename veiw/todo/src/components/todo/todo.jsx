@@ -3,13 +3,16 @@ import { FormControl } from "react-bootstrap"
 import style from "../../components/styles/todo.module.css"
 import Todoli from './todoli';
 import axois from "axios"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Todo = () => {
+    const userInfo  =localStorage.getItem("user")
 
     let [loader, setloader] = useState(false)
     const [input, setinput] = useState("")
     let [state, setstate] = useState(false)
+    let navigate = useNavigate()
 
     let propsObj = {
         state,
@@ -64,7 +67,12 @@ const Todo = () => {
             })
     }
 
-
+    useEffect(()=>{
+        if(!userInfo){
+    
+navigate("/login")
+        }
+    },[])
     return (
         <>
             <div className={style.maincontainer}>

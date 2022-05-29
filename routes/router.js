@@ -1,4 +1,7 @@
 const express = require("express")
+const booking = require("../controllar/authentification/bookin")
+const bookingget = require("../controllar/authentification/bookingdetails")
+const login = require("../controllar/authentification/login")
 const signup = require("../controllar/authentification/signup")
 
 const todoAdd = require("../controllar/todoAdd")
@@ -19,6 +22,9 @@ routes.delete("/api/todo/delete:id" ,Deleteone )
 
 //authentifiaction
 routes.post("/api/signup" ,signup )
+routes.post("/api/login" ,login )
+routes.post("/api/booking" ,booking )
+routes.get("/api/getbooking" ,bookingget )
 
 
 module.exports  = routes

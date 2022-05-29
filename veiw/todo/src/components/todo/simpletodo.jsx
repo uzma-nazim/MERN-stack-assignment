@@ -1,6 +1,6 @@
 import { useState ,useEffect } from "react"
 import axois from "axios"
-import { width } from "@mui/system"
+import style from "../styles/todo.module.css" 
 import axios from "axios"
 const SimpleTodo =()=>{
 
@@ -94,13 +94,13 @@ useEffect(()=>{
 },[update])
      return(
         <>
-        <h1>Todo</h1>
+        <h1 className={`${style.check}`}>Todo</h1>
         <input type="text" onChange={(e)=>setinput(e.target.value)} />
         <button onClick={add}>ADD</button>
         <ul>
             {
                 todo.map((data , index)=>{
-                    // console.log(index);
+                     // console.log(index);
                     
                     return index=== indexVal ?(
 
